@@ -7,6 +7,7 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Image from 'react-bootstrap/Image';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 import './CityForm.css';
 
@@ -57,18 +58,26 @@ class CityForm extends React.Component {
     }
   }
 
-
   handleMap = () => {
 
     const key = process.env.REACT_APP_CITY_KEY;
 
-    let mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${key}&center=${this.state.cityLat},${this.state.cityLon}&zoom=18`;
+    let mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${key}&center=${this.state.cityLat},${this.state.cityLon}&zoom=14`;
 
     console.log(mapUrl);
 
     return (
       <Image src={mapUrl} className="mapImage" rounded />
     )
+  }
+
+  AlertDismissibleExample = () => {
+      return (
+        <Alert variant='danger'>
+          <Alert.Heading> Uh Oh, Something went wrong!</Alert.Heading>
+          <p>{this.state.errCode}</p>
+        </Alert>
+      );
   }
 
   render() {
@@ -84,21 +93,23 @@ class CityForm extends React.Component {
           </Form.Group>
           <Form.Group controlId="exploreButton">
           <Button variant="primary" type="submit" onClick={this.handleSubmit}>
-            Submit
+          Explore!
           </Button>
           </Form.Group>
         </Form>
       {this.state.errCode.length > 0 ?
         <Container>
-          <Alert>{this.state.errCode}</Alert>
+        {
+          this.AlertDismissibleExample()
+        }
         </Container>
       :
-        <Card variant="secondary">
-        <h1>{this.state.displayName}</h1>
-          <ul>
-            <li>Latitude: {this.state.cityLat}</li>
-            <li>Longitude: {this.state.cityLon}</li>
-          </ul>
+        <Card variant="secondary" style={{ width: '18rem' }}>
+          <Card.Header>{this.state.displayName}</Card.Header>
+          <ListGroup variant="flush">
+            <ListGroup.Item>Latitude - {this.state.cityLat}</ListGroup.Item>
+            <ListGroup.Item>Longitude - {this.state.cityLon}</ListGroup.Item>
+          </ListGroup>
         </Card>
       }
       <br />
