@@ -53,7 +53,6 @@ class CityForm extends React.Component {
 
     }
     catch(err) {
-      console.log('err.message');
       this.setState({errCode: err.message});
     }
   }
