@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
+import Image from 'react-bootstrap/Image';
 
 import './CityForm.css';
 
@@ -15,7 +16,6 @@ class CityForm extends React.Component {
     super(props);
     this.state = {
       city: '',
-      displayName: '',
       errCode: ''
     };
   }
@@ -37,14 +37,16 @@ class CityForm extends React.Component {
       const cityInfo = response.data[0];
 
       let displayName = cityInfo.display_name;
+
       let cityLat = cityInfo.lat;
       let cityLon = cityInfo.lon;
 
       this.setState({
-        displayName: displayName,
+        displayName,
         cityLat,
         cityLon
       });
+
      console.log(this.state.cityLat);
     
 
@@ -53,6 +55,20 @@ class CityForm extends React.Component {
       console.log('err.message');
       this.setState({errCode: err.message});
     }
+  }
+
+
+  handleMap = () => {
+
+    const key = process.env.REACT_APP_CITY_KEY;
+
+    let mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${key}&center=${this.state.cityLat},${this.state.cityLon}&zoom=18`;
+
+    console.log(mapUrl);
+
+    return (
+      <Image src={mapUrl} className="mapImage" rounded />
+    )
   }
 
   render() {
@@ -85,6 +101,15 @@ class CityForm extends React.Component {
           </ul>
         </Card>
       }
+      <br />
+      <h1>Map</h1>
+      <Card variant="primary">
+        { this.state.city === '' ? 
+        console.log('no map')
+        :
+        this.handleMap()
+        }
+      </Card>
     </div>
     )
   }

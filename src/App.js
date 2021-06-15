@@ -1,16 +1,16 @@
 import './App.css';
 import React from 'react';
+
 import CityForm from './CityForm';
-import Map from './Map';
 import Header from './Header';
 
 class App extends React.Component {
-  render() {
+
+  render() { 
     return (
-      <div>
+      <div className="App">
         <Header/>
         <CityForm/>
-        <Map/>
       </div>
     )
   }
