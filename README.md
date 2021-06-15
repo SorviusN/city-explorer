@@ -19,3 +19,18 @@ City Explorer was created for the purpose of being able to explore the surroundi
 
 ## Credit and Collaborations
 Big thanks to Steven Boston + Anthony Johnson
+
+# FEATURES:
+
+- Name of feature: Boilerplate website that displays lat/long/name based off of name input 
+- Estimate of time needed to complete: 2 hours
+- Start time: 13:05
+- Finish time: 16:00
+- Actual time needed to complete: 3hrs
+
+- Name of feature: Geomap that displays based off of lat/long data from text input
+- Estimate of time needed to complete: 2 hours
+- Start time: 19:30
+- Finish time: 23:55
+- Actual time needed to complete: 4 hours 30 mins 
+
