@@ -1,3 +1,6 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ceb7335d-c0a2-4b03-8d0e-866e5b98bae1/deploy-status)](https://app.netlify.com/sites/cityexplore/deploys)
+
+
 # City Explorer App
 
 **Author**: Jona Brown
