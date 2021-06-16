@@ -57,26 +57,33 @@ class CityForm extends React.Component {
   }
 
   handleWeatherData = async () => {
-    //create request to the server(Able to be used because of CORS);
+    try{
     let weatherData = await axios.get(`http://localhost:3001/weather?lat=${this.state.cityLat}&lon=${this.state.cityLon}&searchQuery=${this.state.displayName}`);
 
     let forecastArray = [
       {
-        date: weatherData.data.data[0].datetime,
+        date: weatherData.data.data[0].valid_date,
         description: `low of ${weatherData.data.data[0].low_temp}, high of ${weatherData.data.data[0].high_temp} with ${weatherData.data.data[0].weather.description}`
       },
       {
-        date: weatherData.data.data[1].datetime,
+        date: weatherData.data.data[1].valid_date,
         description: `low of ${weatherData.data.data[1].low_temp}, high of ${weatherData.data.data[1].high_temp} with ${weatherData.data.data[1].weather.description}`
       },
       {
-        date: weatherData.data.data[2].datetime,
+        date: weatherData.data.data[2].valid_date,
         description: `low of ${weatherData.data.data[2].low_temp}, high of ${weatherData.data.data[2].high_temp} with ${weatherData.data.data[2].weather.description}`
       }
     ];
-    this.props.setForecast(forecastArray[0]);
+    this.props.setFirstForecast([forecastArray[0].date, forecastArray[0].description]);
+    this.props.setSecondForecast([forecastArray[1].date, forecastArray[1].description]);
+    this.props.setThirdForecast([forecastArray[2].date, forecastArray[2].description]);
+
     console.log(forecastArray[0]);
     //using the parent function to set forecast to the object above.
+    }
+    catch(err) {
+      this.setState({errCode: err.message});
+    }
   }
 
   handleMap = () => {
