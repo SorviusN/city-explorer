@@ -49,7 +49,6 @@ class CityForm extends React.Component {
       });
 
      console.log(this.state.cityLat);
-    
 
     }
     catch(err) {
@@ -57,16 +56,34 @@ class CityForm extends React.Component {
     }
   }
 
+  handleWeatherData = async () => {
+    //create request to the server(Able to be used because of CORS);
+    let weatherData = await axios.get(`http://localhost:3001/weather?lat=${this.state.cityLat}&lon=${this.state.cityLon}&searchQuery=${this.state.displayName}`);
+
+    let forecastArray = [
+      {
+        date: weatherData.data.data[0].datetime,
+        description: `low of ${weatherData.data.data[0].low_temp}, high of ${weatherData.data.data[0].high_temp} with ${weatherData.data.data[0].weather.description}`
+      },
+      {
+        date: weatherData.data.data[1].datetime,
+        description: `low of ${weatherData.data.data[1].low_temp}, high of ${weatherData.data.data[1].high_temp} with ${weatherData.data.data[1].weather.description}`
+      },
+      {
+        date: weatherData.data.data[2].datetime,
+        description: `low of ${weatherData.data.data[2].low_temp}, high of ${weatherData.data.data[2].high_temp} with ${weatherData.data.data[2].weather.description}`
+      }
+    ];
+    this.props.setForecast(forecastArray[0]);
+    console.log(forecastArray[0]);
+    //using the parent function to set forecast to the object above.
+  }
+
   handleMap = () => {
-
     const key = process.env.REACT_APP_CITY_KEY;
-
     let mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${key}&center=${this.state.cityLat},${this.state.cityLon}&zoom=14`;
-
-    console.log(mapUrl);
-
     return (
-      <Image src={mapUrl} className="mapImage" rounded />
+      <Image src={mapUrl} className="mapImage" rounded/>
     )
   }
 
@@ -79,9 +96,15 @@ class CityForm extends React.Component {
       );
   }
 
+  handleAll = async (e) => {
+    await this.handleSubmit(e); // calling await makes it so that the other functions are will not run at the same time. We need to collect lat/long before continuing.
+    this.handleWeatherData();
+    this.handleMap();
+  }
+
   render() {
     return (
-      <div>
+      <>
         <Form>
           <Form.Group controlId="exploreInput">
             <Form.Label>{this.state.city}</Form.Label>
@@ -91,7 +114,7 @@ class CityForm extends React.Component {
           </Form.Text>
           </Form.Group>
           <Form.Group controlId="exploreButton">
-          <Button variant="primary" type="submit" onClick={this.handleSubmit}>
+          <Button variant="primary" type="submit" onClick={this.handleAll}>
           Explore!
           </Button>
           </Form.Group>
@@ -120,7 +143,7 @@ class CityForm extends React.Component {
         this.handleMap()
         }
       </Card>
-    </div>
+    </>
     )
   }
 }
