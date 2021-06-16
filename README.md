@@ -10,18 +10,18 @@
 City Explorer was created for the purpose of being able to explore the surrounding area of a city based on the city name that you type.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+- Create an input field to enter your desired city
+- send the input to server and retrieve latitude + longitude + full city name
+- use latitude and longitude to determine map location for map API
+- Display weather based on name of desired city matching with named json data
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+Cors, React Bootstrap, Express, Node, dotenv, axios 
 
-## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
-
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+06/15/2021 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ## Credit and Collaborations
-Big thanks to Steven Boston + Anthony Johnson
+Big thanks to Michelle for assiting with errors.
 
 # FEATURES:
 
