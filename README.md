@@ -37,5 +37,11 @@ Big thanks to Steven Boston + Anthony Johnson
 - Finish time: 23:55
 - Actual time needed to complete: 4 hours 30 mins 
 
+- Name of feature: Weather API
+- Estimate of time needed to complete: 3 hours
+- Start time: 13:30
+- Finish time: 19:30
+- Actual time needed: 6 hours
+
 Web request-response cycle diagram:
 ![wrrcv2](https://user-images.githubusercontent.com/66106310/122146015-19569980-ce0b-11eb-8c5b-aec382451158.png)
