@@ -43,5 +43,12 @@ Big thanks to Michelle for assiting with errors.
 - Finish time: 19:30
 - Actual time needed: 6 hours
 
+- Name of feature: Movie API
+- Estimate of time needed to complete: 3 hours
+- Start time: 14:30
+- Finish time: 19:30
+- Actual time needed: 8 hours
+- needed quite a lot of time to figure out how to receive the correct data from Movie.
+
 Web request-response cycle diagram:
 ![wrrcv2](https://user-images.githubusercontent.com/66106310/122146015-19569980-ce0b-11eb-8c5b-aec382451158.png)
