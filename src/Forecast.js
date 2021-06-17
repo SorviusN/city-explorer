@@ -13,12 +13,10 @@ class Forecast extends React.Component {
   render() {
     return (
       <>
-      <Card bg="dark" style={{ width: '18rem' }}>
+      <Card bg="dark" style={{ width: '22rem' }}>
         <ListGroup variant="flush">
-          <h3>3 Day Forecast </h3>
-          <ListGroup.Item>{`${this.props.firstForecast[0]} - ${this.props.firstForecast[1]}`}</ListGroup.Item>
-          <ListGroup.Item>{`${this.props.secondForecast[0]} - ${this.props.secondForecast[1]}`}</ListGroup.Item>
-          <ListGroup.Item>{`${this.props.thirdForecast[0]} - ${this.props.thirdForecast[1]}`}</ListGroup.Item>
+          <h3>16 Day Forecast </h3>
+          {this.props.forecast.map(day => <ListGroup.Item>{day.date}, {day.description}</ListGroup.Item>)}
         </ListGroup>
       </Card>
       </>
