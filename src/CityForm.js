@@ -6,7 +6,6 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
-import Image from 'react-bootstrap/Image';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 import './CityForm.css';
@@ -37,49 +36,15 @@ class CityForm extends React.Component {
 
       const cityInfo = response.data[0];
 
-      let displayName = cityInfo.display_name;
-
       let cityLat = cityInfo.lat;
       let cityLon = cityInfo.lon;
+      let displayName = cityInfo.display_name;
 
       this.setState({
         displayName,
         cityLat,
         cityLon
       });
-
-     console.log(this.state.cityLat);
-
-    }
-    catch(err) {
-      this.setState({errCode: err.message});
-    }
-  }
-
-  handleWeatherData = async () => {
-    try{
-    let weatherData = await axios.get(`http://localhost:3001/weather?lat=${this.state.cityLat}&lon=${this.state.cityLon}&searchQuery=${this.state.displayName}`);
-
-    let forecastArray = [
-      {
-        date: weatherData.data.data[0].valid_date,
-        description: `low of ${weatherData.data.data[0].low_temp}, high of ${weatherData.data.data[0].high_temp} with ${weatherData.data.data[0].weather.description}`
-      },
-      {
-        date: weatherData.data.data[1].valid_date,
-        description: `low of ${weatherData.data.data[1].low_temp}, high of ${weatherData.data.data[1].high_temp} with ${weatherData.data.data[1].weather.description}`
-      },
-      {
-        date: weatherData.data.data[2].valid_date,
-        description: `low of ${weatherData.data.data[2].low_temp}, high of ${weatherData.data.data[2].high_temp} with ${weatherData.data.data[2].weather.description}`
-      }
-    ];
-    this.props.setFirstForecast([forecastArray[0].date, forecastArray[0].description]);
-    this.props.setSecondForecast([forecastArray[1].date, forecastArray[1].description]);
-    this.props.setThirdForecast([forecastArray[2].date, forecastArray[2].description]);
-
-    console.log(forecastArray[0]);
-    //using the parent function to set forecast to the object above.
     }
     catch(err) {
       this.setState({errCode: err.message});
@@ -88,9 +53,9 @@ class CityForm extends React.Component {
 
   handleMap = () => {
     const key = process.env.REACT_APP_CITY_KEY;
-    let mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${key}&center=${this.state.cityLat},${this.state.cityLon}&zoom=14`;
+    let mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${key}&center=${this.state.cityLat},${this.state.cityLon}&zoom=12`;
     return (
-      <Image src={mapUrl} className="mapImage" rounded/>
+      <img className="MapImage" src={mapUrl} alt="Map"/>
     )
   }
 
@@ -103,15 +68,50 @@ class CityForm extends React.Component {
       );
   }
 
+  handleWeatherData = async () => {
+    try{
+
+    let weatherData = await axios.get(`http://localhost:3001/weather?lat=${this.state.cityLat}&lon=${this.state.cityLon}`);
+
+    let forecastArray = weatherData.data.map(forecast => {
+      let data = {
+        date: forecast.valid_date,
+        description:`low of ${forecast.low_temp}, high of ${forecast.high_temp} with ${forecast.weather.description}`,
+      };
+        return data;
+    });
+
+    this.props.setForecast(forecastArray);
+
+    //using the parent function to set forecast to the object above.
+    }
+    catch(err) {
+      this.setState({errCode: err.message});
+    }
+  }
+
+  handleMovies = async () => {
+    console.log('handleMovies');
+    try {
+      let movieData = await axios.get(`http://localhost:3001/movie?city=${this.state.city}`);
+
+      console.log(movieData);
+    }
+    catch(err){
+      this.setState({errCode: err.message});
+    }
+  }
+
   handleAll = async (e) => {
     await this.handleSubmit(e); // calling await makes it so that the other functions are will not run at the same time. We need to collect lat/long before continuing.
     this.handleWeatherData();
     this.handleMap();
+    this.handleMovies();
   }
 
   render() {
     return (
-      <>
+      <div className="CityForm">
         <Form>
           <Form.Group controlId="exploreInput">
             <Form.Label>{this.state.city}</Form.Label>
@@ -133,16 +133,15 @@ class CityForm extends React.Component {
         }
         </Container>
       :
-        <Card variant="secondary" style={{ width: '18rem' }}>
+        <Card variant="secondary" className="InfoName" style={{ width: '18rem' }}>
           <Card.Header>{this.state.displayName}</Card.Header>
-          <ListGroup variant="flush">
+          <ListGroup variant="flush" className="InfoList">
             <ListGroup.Item>Latitude - {this.state.cityLat}</ListGroup.Item>
             <ListGroup.Item>Longitude - {this.state.cityLon}</ListGroup.Item>
           </ListGroup>
         </Card>
       }
       <br />
-      <h1>Map</h1>
       <Card variant="primary">
         { this.state.city === '' ? 
         console.log('no map')
@@ -150,7 +149,7 @@ class CityForm extends React.Component {
         this.handleMap()
         }
       </Card>
-    </>
+    </div>
     )
   }
 }

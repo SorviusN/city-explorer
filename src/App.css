@@ -13,3 +13,8 @@
   background-color: none;
 }
 
+.MoviesAndForecastContainer {
+  display: flex;
+  flex-direction: column;
+}
+
