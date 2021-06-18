@@ -13,10 +13,10 @@ class Forecast extends React.Component {
   render() {
     return (
       <>
-      <Card bg="dark" style={{ width: '22rem' }}>
+      <Card style={{ width: '22rem' }}>
         <ListGroup variant="flush">
           <h3>16 Day Forecast </h3>
-          {this.props.forecast.map(day => <ListGroup.Item>{day.date}, {day.description}</ListGroup.Item>)}
+          {this.props.forecast.map(day => <ListGroup.Item key={day.key}>{day.date}, {day.description}</ListGroup.Item>)}
         </ListGroup>
       </Card>
       </>
