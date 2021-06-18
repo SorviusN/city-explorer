@@ -71,7 +71,7 @@ class CityForm extends React.Component {
   handleWeatherData = async () => {
     try{
 
-    let weatherData = await axios.get(`http://localhost:3001/weather?lat=${this.state.cityLat}&lon=${this.state.cityLon}`);
+    let weatherData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather?lat=${this.state.cityLat}&lon=${this.state.cityLon}`);
 
     let forecastArray = weatherData.data.map((forecast, idx) => {
       let data = {

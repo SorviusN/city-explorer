@@ -24,7 +24,8 @@ padding: 0;
   border: solid black 1px;
 }
 
-.card {
-  background: none;
+.MapImage::parent {
   border: none;
+  background: none;
 }
+
