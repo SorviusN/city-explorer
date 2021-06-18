@@ -73,17 +73,18 @@ class CityForm extends React.Component {
 
     let weatherData = await axios.get(`http://localhost:3001/weather?lat=${this.state.cityLat}&lon=${this.state.cityLon}`);
 
-    let forecastArray = weatherData.data.map(forecast => {
+    let forecastArray = weatherData.data.map((forecast, idx) => {
       let data = {
         date: forecast.valid_date,
         description:`low of ${forecast.low_temp}, high of ${forecast.high_temp} with ${forecast.weather.description}`,
+        key: idx,
       };
         return data;
     });
 
+    //using the parent function to set forecast to the object below.
     this.props.setForecast(forecastArray);
 
-    //using the parent function to set forecast to the object above.
     }
     catch(err) {
       this.setState({errCode: err.message});
@@ -91,11 +92,10 @@ class CityForm extends React.Component {
   }
 
   handleMovies = async () => {
-    console.log('handleMovies');
     try {
       let movieData = await axios.get(`http://localhost:3001/movie?city=${this.state.city}`);
-
-      console.log(movieData);
+      //setting the state of parent component App to the Mapped movies array which the server sent back.
+      this.props.setMovies(movieData.data);
     }
     catch(err){
       this.setState({errCode: err.message});

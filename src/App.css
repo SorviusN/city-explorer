@@ -15,6 +15,11 @@
 
 .MoviesAndForecastContainer {
   display: flex;
-  flex-direction: column;
+  width: 80vw;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.Movies {
 }
 
