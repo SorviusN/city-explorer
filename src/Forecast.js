@@ -8,7 +8,7 @@ class Forecast extends React.Component {
   render() {
     return(
       <>
-      <Card style={{ width: '22rem'}}>
+      <Card bg="dark" style={{ width: '22rem'}}>
       <h2>16-Day Forecast</h2>
         {this.props.forecast.map(forecastDay => {
           return (

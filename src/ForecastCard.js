@@ -7,9 +7,9 @@ import './ForecastCard.css';
 class ForecastCard extends React.Component {
   render() {
       return (
-          <ListGroup className="forecastDateTime" variant="flush">
-            <ListGroup.Item variant="danger">{this.props.forecastDay.date} </ListGroup.Item>
-            <ListGroup.Item variant="success">{this.props.forecastDay.description}</ListGroup.Item>
+          <ListGroup className="forecastDateTime">
+            <ListGroup.Item variant="light">{this.props.forecastDay.date} </ListGroup.Item>
+            <ListGroup.Item variant="info">{this.props.forecastDay.description}</ListGroup.Item>
           </ListGroup>
       )  
   }
