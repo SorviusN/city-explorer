@@ -1,28 +1,24 @@
 import React from 'react';
+
 import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
+
+import ForecastCard from './ForecastCard';
 
 class Forecast extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-  }
-
   render() {
-    return (
+    return(
       <>
-      <Card style={{ width: '22rem' }}>
-        <ListGroup variant="flush">
-          <h3>16 Day Forecast </h3>
-          {this.props.forecast.map(day => <ListGroup.Item key={day.key}>{day.date}, {day.description}</ListGroup.Item>)}
-        </ListGroup>
+      <Card style={{ width: '22rem'}}>
+      <h2>16-Day Forecast</h2>
+        {this.props.forecast.map(forecastDay => {
+          return (
+            <ForecastCard forecastDay={forecastDay}></ForecastCard>
+          )}
+        )}
       </Card>
       </>
-    );
+    )
   }
-
 }
 
 export default Forecast;

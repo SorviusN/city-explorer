@@ -59,32 +59,21 @@ class CityForm extends React.Component {
     )
   }
 
-  AlertDismissibleExample = () => {
-      return (
-        <Alert variant='danger'>
-          <Alert.Heading> Uh Oh, Something went wrong!</Alert.Heading>
-          <p>{this.state.errCode}</p>
-        </Alert>
-      );
+  alertError = () => {
+    return (
+      <Alert variant='danger'>
+        <Alert.Heading> Uh Oh, Something went wrong!</Alert.Heading>
+        <p>{this.state.errCode}</p>
+      </Alert>
+    );
   }
 
   handleWeatherData = async () => {
     try{
 
     let weatherData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather?lat=${this.state.cityLat}&lon=${this.state.cityLon}`);
-
-    let forecastArray = weatherData.data.map((forecast, idx) => {
-      let data = {
-        date: forecast.valid_date,
-        description:`low of ${forecast.low_temp}, high of ${forecast.high_temp} with ${forecast.weather.description}`,
-        key: idx,
-      };
-        return data;
-    });
-
-    //using the parent function to set forecast to the object below.
-    this.props.setForecast(forecastArray);
-
+      //using the parent function to set forecast to the object below.
+      this.props.setForecast(weatherData.data); 
     }
     catch(err) {
       this.setState({errCode: err.message});
@@ -93,7 +82,7 @@ class CityForm extends React.Component {
 
   handleMovies = async () => {
     try {
-      let movieData = await axios.get(`http://localhost:3001/movie?city=${this.state.city}`);
+      let movieData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/movie?city=${this.state.city}`);
       //setting the state of parent component App to the Mapped movies array which the server sent back.
       this.props.setMovies(movieData.data);
     }
@@ -117,7 +106,7 @@ class CityForm extends React.Component {
             <Form.Label>{this.state.city}</Form.Label>
             <Form.Control type="text" placeholder="Enter a location" onChange={this.handleChange}/>
             <Form.Text className="text-muted">
-      Look for places around your city!
+              Look for places around your city!
           </Form.Text>
           </Form.Group>
           <Form.Group controlId="exploreButton">
@@ -126,10 +115,15 @@ class CityForm extends React.Component {
           </Button>
           </Form.Group>
         </Form>
+        { this.state.city === '' ? 
+          ''
+        :
+        this.handleMap()
+        }
       {this.state.errCode.length > 0 ?
         <Container>
         {
-          this.AlertDismissibleExample()
+          this.alertError()
         }
         </Container>
       :
@@ -142,13 +136,6 @@ class CityForm extends React.Component {
         </Card>
       }
       <br />
-      <Card variant="primary">
-        { this.state.city === '' ? 
-        console.log('no map')
-        :
-        this.handleMap()
-        }
-      </Card>
     </div>
     )
   }

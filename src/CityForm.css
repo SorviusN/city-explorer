@@ -8,7 +8,7 @@ padding: 0;
   width: 100vw;
   display: flex;
   padding: 3rem;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .InfoName {
@@ -20,12 +20,11 @@ padding: 0;
 }
 
 .MapImage {
-  border-radius: 50%;
   border: solid black 1px;
+  border-radius: 50%;
 }
 
-.MapImage::parent {
-  border: none;
+.Card {
   background: none;
 }
 
