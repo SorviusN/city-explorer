@@ -85,6 +85,7 @@ class CityForm extends React.Component {
       let movieData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/movie?city=${this.state.city}`);
       //setting the state of parent component App to the Mapped movies array which the server sent back.
       this.props.setMovies(movieData.data);
+      console.log(movieData.data);
     }
     catch(err){
       this.setState({errCode: err.message});

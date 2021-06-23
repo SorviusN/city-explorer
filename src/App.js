@@ -12,8 +12,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      forecast: '',
-      movies: '',
+      forecast: [],
+      movies: [],
     }
   }
 
@@ -26,7 +26,7 @@ class App extends React.Component {
   setMovies = (data) => {
     this.setState({
       movies: data,
-    })
+    });
   }
 
   render() { 

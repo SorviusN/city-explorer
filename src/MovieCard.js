@@ -8,7 +8,7 @@ class MovieCard extends React.Component {
   render() {
       return (
         <Card style={{ width: '15rem' }}>
-        {this.props.movie.imageUrl !== null ? <Card.Img variant="top" src={this.props.movie.imageUrl}/> : <div></div>}
+        {this.props.movie.imageUrl !== this.props.movie.imageUrl.endsWith(null) ? <Card.Img variant="top" src={this.props.movie.imageUrl}/> : <div></div>}
           <ListGroup>
             <ListGroup.Item variant="success">{this.props.movie.title} </ListGroup.Item>
             <ListGroup.Item variant="info">Overview: {this.props.movie.overview} </ListGroup.Item>
